@@ -7,16 +7,9 @@
 
 > Streaming data analytics: complete pipeline.
 
-Streaming analytics requires working with data in motion
-and distributed, scalable systems.
-This course builds capabilities through working projects.
-In the age of generative AI, durable skills are grounded in real work:
-setting up a professional environment,
-reading and running code,
-understanding the logic,
-and pushing work to a shared repository.
-Each project follows the structure of professional Python projects.
-We learn by doing.
+This project demonstrates a complete streaming analytics pipeline using Kafka,
+DuckDB, and Python. Sales transactions are streamed through Kafka, processed by
+a consumer, enriched with derived fields, visualized, and stored for analysis.
 
 ## This Project
 
@@ -27,7 +20,7 @@ The producer sends validated sales messages to a Kafka topic.
 The consumer reads each message, validates required fields, computes derived values,
 updates a live chart, writes processed records to CSV, and stores results in DuckDB.
 
-This module combines the major skills from the course:
+This project combines several streaming analytics concepts:
 
 - producing messages
 - consuming messages
@@ -104,39 +97,18 @@ Custom files include:
 - [kafka_consumer_kjleopold.py](src/streaming/kafka_consumer_kjleopold.py)
   - Processes messages and logs customer value summaries.
 
-## Working Files
-
-You'll work with just these areas:
+## Project Structure
 
 - **data/** - input data and generated output files
 - **docs/** - the project narrative and documentation
 - **src/streaming/** - producer, consumer, and supporting code
-- **pyproject.toml** - update authorship & links
-- **zensical.toml** - update authorship & links
-
-## Instructions
-
-Follow the
-[step-by-step workflow guide](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/)
-to complete:
-
-1. Phase 1. **Start & Run**
-2. Phase 2. **Change Authorship**
-3. Phase 3. **Read & Understand**
-4. Phase 4. **Modify**
-5. Phase 5. **Apply**
-
-## Challenges
-
-Challenges are expected.
-Sometimes instructions may not quite match your operating system.
-When issues occur, share screenshots, error messages, and details about what you tried.
-Working through issues is part of implementing professional projects.
+- **pyproject.toml** - project configuration
+- **zensical.toml** - project documentation configuration
 
 ## Success
 
-After completing Phase 1. **Start & Run**, you'll have your own GitHub project
-running with Kafka.
+After completing the setup steps below, you will have a working Kafka
+streaming pipeline running locally.
 
 Use four named terminals:
 
@@ -156,6 +128,10 @@ Consumer executed successfully!
 A new file `project.log` will appear in the root project folder
 and processed data will appear in data/output/.
 
+You should also see sales records stored in DuckDB, a generated sales chart,
+and analytics summarizing transactions by customer value category (low,
+medium, and high).
+
 ## Sample Output
 
 ![Sales Chart](data/output/sales_chart_kjleopold.png)
@@ -173,8 +149,8 @@ Expected output files include:
 
 The instructions below can be used to set up and run the project.
 
-**Important:** If this is your first time running the project,
-follow the workflow guide above for the complete instructions.
+**Important:** If you are new to Kafka or this project setup,
+review the linked Kafka documentation before running the project.
 
 <details>
 <summary>Show detailed setup and run instructions</summary>
@@ -205,7 +181,6 @@ uv sync --extra dev --extra docs --upgrade
 
 # set up pre-commit hooks (not needed for peer review)
 uvx pre-commit install
-git add -A
 uvx pre-commit run --all-files
 ```
 
@@ -264,23 +239,28 @@ bin/kafka-server-start.sh config/server.properties
 
 ### In VS Code Terminal 2: Verify Kafka and Create Topic (topics)
 
-The Kafka admin utility verifies the Kafka connection and automatically creates
-the project topic if it does not already exist. Instructions for both the admin
-utility and manual topic creation are included below.
+The Kafka admin utility verifies the Kafka connection and manages the
+project topic. It can create the topic, delete it, or recreate it from
+scratch. Instructions for both the admin utility and manual topic
+creation are included below.
 
 To use the admin utility, if running Windows, use a **PowerShell** terminal.
 
 Run:
 
 ```shell
+# create topic
 uv run python -m streaming.kafka_admin_kjleopold
+
+# delete and recreate topic
+uv run python -m streaming.kafka_admin_kjleopold --recreate
+
+# delete topic
+uv run python -m streaming.kafka_admin_kjleopold --delete
 ```
 
 To manually create the topic instead of running the admin utility,
 see the instructions below.
-
-For full instructions see
-[**create topic**](https://denisecase.github.io/pro-analytics-02/kafka/create-topic/).
 
 The topic name must match the name defined in your
 `.env` file (copy `.env.example` to `.env`).
@@ -348,23 +328,4 @@ git commit -m "add a meaningful comment"
 git push -u origin main
 ```
 
-To start fresh, see
-[manage topics](https://denisecase.github.io/pro-analytics-02/kafka/manage-topics/)
-to delete the topic and recreate it.
-
 </details>
-
-## Notes
-
-- Use the **UP ARROW** and **DOWN ARROW** in the terminal to scroll through past commands.
-- Use `CTRL+f` to find (and replace) text within a file.
-- You do not need to add to or modify `tests/`. They are provided for example only.
-- Many files are silent helpers. Explore as you like, but nothing is required.
-- You do NOT need to understand everything; understanding builds naturally over time.
-
-## Troubleshooting >>> or
-
-If you see something like this in your terminal: `>>>` or `...`
-You accidentally started Python interactive mode.
-It happens.
-Press `Ctrl+c` (both keys together) or `Ctrl+Z` then `Enter` on Windows.
