@@ -46,11 +46,22 @@ sales as low, medium, or high based on the total sale amount.
 For Phase 5, I stored the new field in DuckDB and added a summary query that
 counts transactions by customer value category.
 
+The customer_value field classifies transactions as:
+
+- low (< $100)
+- medium ($100-$249.99)
+- high ($250+)
+
 Custom files include:
 
-- src/streaming/data_engineering/derived_fields_kjleopold.py
-- src/streaming/storage/storage_kjleopold.py
-- src/streaming/kafka_consumer_kjleopold.py
+- [derived_fields_kjleopold.py](src/streaming/data_engineering/derived_fields_kjleopold.py)
+  - Adds the customer_value derived field.
+
+- [storage_kjleopold.py](src/streaming/storage/storage_kjleopold.py)
+  - Adds DuckDB analytics by customer value category.
+
+- [kafka_consumer_kjleopold.py](src/streaming/kafka_consumer_kjleopold.py)
+  - Processes messages and logs customer value summaries.
 
 ## Working Files
 
@@ -149,7 +160,7 @@ uvx pre-commit run --all-files
 ### Activate VS Code
 
 - Open the Command Palette (menu: View/Command Palette, or `Ctrl+Shift+P`)
-- Type and choose: `Python: Select Inerpreter`
+- Type and choose: `Python: Select Interpreter`
 - Choose the interpreter inside this project's `.venv` folder (usually .\.venv\Scripts\python.exe)
 - Open the Command Palette again (same as before)
 - Type or choose: `Developer: Reload Window`
