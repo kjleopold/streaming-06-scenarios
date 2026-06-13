@@ -287,18 +287,11 @@ Run the commands one at a time.
 
 ```shell
 # reset uv cache only if/when you start getting strange dependency errors
-# uv cache clean
+# uv cache clean if needed
 
 # run the producer
 clear
 uv run python -m streaming.kafka_producer_kjleopold
-
-# do chores (not needed for peer review)
-uv run ruff format .
-uv run ruff check . --fix
-uv run python -m pyright
-uv run python -m pytest
-uv run python -m zensical build
 ```
 
 ### In VS Code Terminal 4: Run Consumer (consumer)
@@ -313,10 +306,20 @@ clear
 uv run python -m streaming.kafka_consumer_kjleopold
 ```
 
-### Save Progress
+### Optional Project Maintenance
+
+These commands are useful when developing or updating the project but are not
+required to run the streaming pipeline or complete a peer review.
 
 ```shell
-# not needed for peer review
+# do chores
+uv run ruff format .
+uv run ruff check . --fix
+uv run python -m pyright
+uv run python -m pytest
+uv run python -m zensical build
+
+# save progress
 git add -A
 git commit -m "add a meaningful comment"
 git push -u origin main
