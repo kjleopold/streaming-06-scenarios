@@ -255,7 +255,19 @@ cd ~/kafka
 bin/kafka-server-start.sh config/server.properties
 ```
 
-### In VS Code terminal 2: Create Topic (topics)
+### In VS Code Terminal 2: Verify Kafka and Create Topic (topics)
+
+The project includes a Kafka admin utility that verifies the Kafka
+connection and automatically creates the project topic if it does not
+already exist.
+
+Run:
+
+```shell
+uv run python -m streaming.kafka_admin_kjleopold
+```
+
+To manually create the topic, see the instructions below.
 
 For full instructions see
 [**create topic**](https://denisecase.github.io/pro-analytics-02/kafka/create-topic/).
