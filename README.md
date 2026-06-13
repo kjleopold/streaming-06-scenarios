@@ -38,6 +38,43 @@ This module combines the major skills from the course:
 
 The goal is to see how the parts work together in one complete scenario.
 
+For my custom project, I extended the pipeline by classifying transactions as
+low, medium, or high value based on total sale amount. This allows the consumer
+to generate additional analytics that provide insight into customer spending
+patterns and sales performance.
+
+## Dataset
+
+This project streams records from `data/sales.csv`, which contains
+sales transaction records including order information, product details,
+customer information, pricing, and payment data.
+
+The project also uses `regions.csv`, `products.csv`,
+`currencies.csv`, and `discount_codes.csv` as static reference tables
+for validation and enrichment.
+
+## Kafka Topic
+
+Topic: `streaming-06-scenarios-kjleopold`
+
+Message Key: `region_id`
+
+Using `region_id` as the message key groups sales messages by region and
+helps organize the streaming data as it moves through Kafka.
+
+## Consumer Processing
+
+The consumer receives sales transaction messages from Kafka and
+processes each record by:
+
+- validating required fields
+- calculating derived fields including subtotal, tax_amount, total, and customer_value
+- classifying transactions by customer_value
+- updating a live sales chart
+- writing processed records to CSV
+- storing records in DuckDB
+- generating summary analytics by region and customer value category
+
 ## Custom Modifications
 
 These modifications extend the original sales pipeline by classifying
