@@ -160,16 +160,24 @@ and processed data will appear in data/output/.
 
 ![Sales Chart](data/output/sales_chart_kjleopold.png)
 
-## Command Reference
+## Output Artifacts
 
-The commands below are used in the workflow guide above.
-They are provided here for convenience.
+Expected output files include:
 
-**Important:** the first few times you run a project,
-follow the guide with the **complete instructions**.
+- consumed_sales_kjleopold.csv
+- sales_kjleopold.duckdb
+- sales_chart_kjleopold.png
+- project.log
+
+## Setup and Run Instructions
+
+The instructions below can be used to set up and run the project.
+
+**Important:** If this is your first time running the project,
+follow the workflow guide above for the complete instructions.
 
 <details>
-<summary>Show command reference</summary>
+<summary>Show detailed setup and run instructions</summary>
 
 ### In a machine terminal (open in your `Repos` folder)
 
@@ -177,7 +185,6 @@ After you get a copy of this repo in your own GitHub account,
 open a machine terminal in your `Repos` folder:
 
 ```bash
-# Replace username with YOUR GitHub username.
 git clone https://github.com/kjleopold/streaming-06-scenarios
 
 cd streaming-06-scenarios
@@ -196,7 +203,7 @@ uv self update
 uv python pin 3.14
 uv sync --extra dev --extra docs --upgrade
 
-# set up pre-commit hooks
+# set up pre-commit hooks (not needed for peer review)
 uvx pre-commit install
 git add -A
 uvx pre-commit run --all-files
@@ -257,9 +264,11 @@ bin/kafka-server-start.sh config/server.properties
 
 ### In VS Code Terminal 2: Verify Kafka and Create Topic (topics)
 
-The project includes a Kafka admin utility that verifies the Kafka
-connection and automatically creates the project topic if it does not
-already exist.
+The Kafka admin utility verifies the Kafka connection and automatically creates
+the project topic if it does not already exist. Instructions for both the admin
+utility and manual topic creation are included below.
+
+To use the admin utility, if running Windows, use a **PowerShell** terminal.
 
 Run:
 
@@ -267,7 +276,8 @@ Run:
 uv run python -m streaming.kafka_admin_kjleopold
 ```
 
-To manually create the topic, see the instructions below.
+To manually create the topic instead of running the admin utility,
+see the instructions below.
 
 For full instructions see
 [**create topic**](https://denisecase.github.io/pro-analytics-02/kafka/create-topic/).
@@ -304,14 +314,14 @@ Run the commands one at a time.
 clear
 uv run python -m streaming.kafka_producer_kjleopold
 
-# do chores
+# do chores (not needed for peer review)
 uv run ruff format .
 uv run ruff check . --fix
 uv run python -m pyright
 uv run python -m pytest
 uv run python -m zensical build
 
-# save progress
+# save progress (not needed for peer review)
 git add -A
 git commit -m "update"
 git push -u origin main
@@ -327,8 +337,12 @@ Clear the terminal, then start the consumer.
 ```shell
 clear
 uv run python -m streaming.kafka_consumer_kjleopold
+```
 
-# save progress
+### Save Progress
+
+```shell
+# not needed for peer review
 git add -A
 git commit -m "add a meaningful comment"
 git push -u origin main
