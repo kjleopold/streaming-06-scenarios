@@ -13,7 +13,7 @@ a consumer, enriched with derived fields, visualized, and stored for analysis.
 
 ## Project Overview
 
-The full streaming analytics workflow is brought together in a single pipeline.
+A complete streaming analytics workflow is demonstrated through a Kafka-based pipeline.
 
 The project uses Kafka to move sales messages from a producer to a consumer.
 The producer sends validated sales messages to a Kafka topic.
@@ -79,7 +79,7 @@ sales as low, medium, or high based on the total sale amount.
 For Phase 5, I stored the new field in DuckDB and added a summary query that
 counts transactions by customer value category.
 
-The customer_value field classifies transactions as:
+The `customer_value` field classifies transactions as:
 
 - low (< $100)
 - medium ($100-$249.99)
