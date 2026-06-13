@@ -293,7 +293,7 @@ to delete the topic and recreate it.
 - Use `CTRL+f` to find (and replace) text within a file.
 - You do not need to add to or modify `tests/`. They are provided for example only.
 - Many files are silent helpers. Explore as you like, but nothing is required.
-- You do NOT not to understand everything; understanding builds naturally over time.
+- You do NOT need to understand everything; understanding builds naturally over time.
 
 ## Troubleshooting >>> or
 
